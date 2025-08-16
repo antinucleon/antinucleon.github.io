@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" class="tui-bg-blue-black">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bing Xu</title>
+
+    <!-- TuiCss (CSS + optional JS helpers) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tuicss@2.1.2/dist/tuicss.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/tuicss@2.1.2/dist/tuicss.min.js"></script>
+
+    <style>
+      :root {
+        --cv-max-width: 980px;
+      }
+      html, body { height: 100%; }
+      body { margin: 0; }
+      .container { max-width: var(--cv-max-width); margin: 1.25rem auto 3.75rem; padding: 0 1rem; }
+
+      /* BIOS window sizing */
+      .cv-window fieldset { min-height: 72vh; }
+
+      /* Tabs */
+      .tui-tabs { margin: .25rem 0 1rem; padding-left: 0; }
+      .tui-tabs .tui-tab { display: inline-block; margin-right: 2ch; cursor: pointer; }
+      .tui-tab.is-active { text-decoration: underline; }
+
+      /* Layout for content + help */
+      .cv-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.25rem; }
+      @media (max-width: 900px){ .cv-grid { grid-template-columns: 1fr; } }
+
+      /* "BIOS list" look */
+      .bios-list { line-height: 1.35; white-space: pre-wrap; font-family: inherit; }
+      .kv { display: flex; }
+      .kv .k { width: 24ch; }
+      .kv .dots { flex: 1 1 auto; border-bottom: 1px dotted currentColor; margin: 0 .75ch; transform: translateY(-.35em); }
+      .kv .v { min-width: 24ch; }
+
+      /* Selectable list for Experience / Projects */
+      .selectable .item { padding: .15rem .35rem; }
+      .selectable .item[aria-selected="true"] { background: #fff; color: #000; }
+
+      /* Status bar fixed to bottom */
+      .tui-statusbar { position: fixed; left: 0; right: 0; bottom: 0; }
+      .tui-statusbar ul { margin: 0; }
+
+      /* Modal helpers */
+      .tui-modal[hidden] { display:none; }
+      .tui-modal .tui-window { max-width: 460px; margin: 10vh auto 0; }
+
+      /* Tiny link styles inside the right help pane */
+      .help small a { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="tui-window cv-window">
+        <fieldset class="tui-fieldset tui-border-double">
+          <legend> <span id="cvName">Bing Xu</span></legend>
+
+          <!-- Top menu (tabs) -->
+          <ul id="tabs" class="tui-tabs" role="tablist" aria-label="Sections">
+            <li class="tui-tab is-active" role="tab" tabindex="0" aria-selected="true" data-tab="main">Main</li>
+            <li class="tui-tab" role="tab" tabindex="-1" data-tab="experience">Experience</li>
+            <li class="tui-tab" role="tab" tabindex="-1" data-tab="projects">Projects</li>
+            <li class="tui-tab" role="tab" tabindex="-1" data-tab="education">Education</li>
+            <li class="tui-tab" role="tab" tabindex="-1" data-tab="publications">Publication</li>
+            <li class="tui-tab" role="tab" tabindex="-1" data-tab="notes">Fun</li>
+          </ul>
+
+          <div class="cv-grid">
+            <!-- Left: content area -->
+            <div id="pane">
+              <!-- MAIN -->
+              <section id="tab-main" class="tab is-active" role="tabpanel" aria-labelledby="Main">
+                <div class="bios-list">
+                  <div class="kv"><span class="k">Name</span><span class="dots"></span><span class="v"><strong>Bing Xu</strong></span></div>
+                  <div class="kv"><span class="k">Email</span><span class="dots"></span><span class="v"><a id="emailLink" href="mailto:antinucleon@gmail.com">antinucleon@gmail.com</a></span></div>
+                  <div class="kv"><span class="k">LinkedIn</span><span class="dots"></span><span class="v"><a href="https://www.linkedin.com/in/binghsu/" target="_blank" rel="noopener">linkedin.com/in/binghsu</a></span></div>
+                  <div class="kv"><span class="k">Google Scholar</span><span class="dots"></span><span class="v"><a href="https://scholar.google.com/citations?user=nHh9PSsAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar.google.com/citations?user=nHh9PSsAAAAJ</a></span></div>
+                </div>
+              </section>
+
+              <!-- EXPERIENCE -->
+              <section id="tab-experience" class="tab" hidden role="tabpanel" aria-labelledby="Experience">
+                <div class="selectable" data-group="exp">
+                  <div class="item" tabindex="0">
+                    <strong>Distinguished Engineer — NVIDIA</strong> (04 2024 – Present)
+                    <ul>
+                      <li>Initiated “Pythonic” across all NVIDIA software.</li>
+                      <li>State‑of‑the‑art AI agents.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>CEO — HippoML</strong> (01 2023 – 04 2024)
+                    <ul>
+                      <li>State‑of‑the‑art GPU inference software on NVIDIA and Apple GPUs.</li>
+                      <li>Acquired by NVIDIA.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>Senior Staff Engineer — Meta</strong> (06 2021 – 01 2023)
+                    <ul>
+                      <li>Created AITemplate; solved AMD &amp; NVIDIA GPU inference.</li>
+                      <li>AITemplate seems to still power Meta’s business—unbelievable.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>Principal Engineer — OctoML</strong> (04 2020 – 05 2021)
+                    <ul>
+                      <li>Found AI compilers didn’t work, so I returned to Meta and created AITemplate.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>Staff Engineer — Facebook</strong> (10 2018 – 04 2020)
+                    <ul>
+                      <li>Model–system co‑design.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>Senior Engineer — Apple</strong> (08 2016 – 10 2018)
+                    <ul>
+                      <li>First Apple GPU training system.</li>
+                      <li>Distributed training with MXNet.</li>
+                    </ul>
+                  </div>
+                  <div class="item" tabindex="0">
+                    <strong>Software Engineer — Dato (GraphLab)</strong> (03 2016 – 08 2016)
+                    <ul>
+                      <li>Helped them get acquired by Apple as a leading deep‑learning company with GANs, MXNet, and fast style transfer.</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <!-- PROJECTS -->
+              <section id="tab-projects" class="tab" hidden role="tabpanel" aria-labelledby="Projects">
+                <div class="selectable" data-group="proj">
+                  <div class="item" tabindex="0"><strong>XGBoost Python</strong></div>
+                  <div class="item" tabindex="0"><strong>CXXNet</strong></div>
+                  <div class="item" tabindex="0"><strong>MXNet</strong></div>
+                  <div class="item" tabindex="0"><strong>AITemplate</strong></div>
+                </div>
+              </section>
+
+              <!-- EDUCATION -->
+              <section id="tab-education" class="tab" hidden role="tabpanel" aria-labelledby="Education">
+                <ul>
+                  <li><strong>MSc, Computing Science</strong> — University of Alberta, Edmonton, AB (09 2013 - 03 2016)
+                    <ul>
+                      <li>Supervisor: Dale Schuurmans</li>
+                    </ul>
+                  </li>
+                  <li><strong>BEng., Computer Science</strong> — BUPT, Beijing, China (09 2009 - 06 2013)</li>
+                </ul>
+              </section>
+
+              <!-- SKILLS -->
+              
+
+              <!-- CONTACT -->
+              <section id="tab-publications" class="tab" hidden role="tabpanel" aria-labelledby="Publication">
+                <p>Check: <a href="https://scholar.google.com/citations?user=nHh9PSsAAAAJ&amp;hl=en" target="_blank" rel="noopener">https://scholar.google.com/citations?user=nHh9PSsAAAAJ&amp;hl=en</a></p>
+              </section>
+
+              <section id="tab-notes" class="tab" hidden role="tabpanel" aria-labelledby="Fun">
+                <div class="selectable" data-group="notes">
+                  <div class="item" tabindex="0"><strong>2010</strong>: Watched a failed iPad app startup trying to build a first‑gen news‑reading app; the founders were cloud architects—saw the rise of mobile but didn’t see ML’s power.</div>
+                  <div class="item" tabindex="0"><strong>2012</strong>: Learning deep learning. Built the first GPU machine at BUPT and the MSRA ML group; ported Theano to Windows; mined some bitcoins/litecoins with those GPUs—later felt blockchain was a scam.</div>
+                  <div class="item" tabindex="0"><strong>2013–2016</strong>: My supervisor, Dale Schuurmans, is the best. He never asked me to do anything—just funded whatever I wanted to do. Deeply influenced my management style. When Facebook tore my offer after I lost the H‑1B lottery twice, he gave me more scholarship so I could stay.</div>
+                  <div class="item" tabindex="0"><strong>2015</strong>: After Facebook refused to sponsor my O‑1 visa (I didn’t have 50 citations), I started paying attention to research &amp; publication. I created an architecture identical to SqueezeNet. Submitted to ICONIP then withdrew it—thought the work was trivial and the conference quality was too low. Later it was a chapter in my master’s thesis.</div>
+                  <div class="item" tabindex="0"><strong>2016</strong>: In parallel, created fast style transfer; helped Dato get acquired by Apple.</div>
+                  <div class="item" tabindex="0"><strong>2019</strong>: In parallel, created EfficientNet‑like ideas; a few weeks after I posted internally, Google published the systematic paper.</div>
+                  <div class="item" tabindex="0"><strong>2019</strong>: Built a “GEMM Net” (GEMM instead of convolution for CV). But I was brain‑damaged enough to use soft attention rather than self‑attention.</div>
+                  <div class="item" tabindex="0"><strong>2019</strong>: Advocating “The Bitter Lesson” at Facebook.</div>
+                  <div class="item" tabindex="0"><strong>2023</strong>: Raising funds for HippoML created forever PTSD for me with VCs—especially with blonde hair partners.</div>
+                </div>
+              </section>
+
+              
+            </div>
+
+            <!-- Right: help pane -->
+            <aside class="help">
+              <div class="tui-panel">
+                <div class="tui-panel__header">Item Specific Help</div>
+                <div class="tui-panel__body">
+                  <p>Use <strong>←/→</strong> to switch tabs and <strong>↑/↓</strong> to move between items. <strong>Enter</strong> opens links on focused lines.</p>
+                  <p><strong>F1</strong> toggles this help. <strong>F9</strong> resets navigation. <strong>F10</strong> opens “Save & Exit”.</p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Status bar (bottom) -->
+    <div class="tui-statusbar blue-255 white-255-text">
+      <ul>
+        <li><a>F1 Help</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>F9 Setup Defaults</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>F10 Save &amp; Exit</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>ESC Cancel</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>←/→ Select Tab</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>↑/↓ Select Item</a></li>
+        <li class="tui-statusbar-divider"></li>
+        <li><a>Enter Open</a></li>
+      </ul>
+    </div>
+
+    <!-- Modal: Save & Exit -->
+    <div id="saveModal" class="tui-modal" hidden>
+      <div class="tui-window red-255">
+        <fieldset class="tui-fieldset tui-border-double">
+          <legend>Save &amp; Exit</legend>
+          <p>Open a printable CV (PDF) in a new tab?</p>
+          <div>
+            <button id="openPdf" class="tui-button">Yes</button>
+            <button id="closeModal" class="tui-button">No</button>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <script>
+      // --- Tab switching ---
+      const tabs = Array.from(document.querySelectorAll('#tabs .tui-tab'));
+      const panels = {
+        main: document.querySelector('#tab-main'),
+        experience: document.querySelector('#tab-experience'),
+        projects: document.querySelector('#tab-projects'),
+        education: document.querySelector('#tab-education'),
+        publications: document.querySelector('#tab-publications'),
+        notes: document.querySelector('#tab-notes')
+      };
+      let tabIndex = 0;
+
+      function activateTab(i){
+        tabIndex = (i + tabs.length) % tabs.length;
+        tabs.forEach((t, idx)=>{
+          const active = idx === tabIndex;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', active);
+          t.tabIndex = active ? 0 : -1;
+          const key = t.dataset.tab;
+          panels[key].hidden = !active;
+          panels[key].classList.toggle('is-active', active);
+        });
+        tabs[tabIndex].focus({preventScroll:true});
+        resetSelection();
+      }
+
+      tabs.forEach((t, i)=> t.addEventListener('click', ()=> activateTab(i)) );
+
+      // --- Selectable lists (for ↑/↓ and Enter) ---
+      let selIndex = 0;
+      function itemsInActive(){
+        const active = Object.values(panels).find(p=>p.classList.contains('is-active'));
+        return active ? Array.from(active.querySelectorAll('.selectable .item')) : [];
+      }
+      function setSelected(n){
+        const items = itemsInActive();
+        if (!items.length) return;
+        selIndex = (n + items.length) % items.length;
+        items.forEach((el, idx)=> el.setAttribute('aria-selected', idx===selIndex));
+        items[selIndex].focus({preventScroll:true});
+      }
+      function resetSelection(){ setSelected(0); }
+
+      // --- Keyboard shortcuts (BIOS vibes) ---
+      document.addEventListener('keydown', (e)=>{
+        const key = e.key;
+        if (key === 'ArrowRight'){ activateTab(tabIndex+1); e.preventDefault(); }
+        else if (key === 'ArrowLeft'){ activateTab(tabIndex-1); e.preventDefault(); }
+        else if (key === 'ArrowDown'){ setSelected(selIndex+1); e.preventDefault(); }
+        else if (key === 'ArrowUp'){ setSelected(selIndex-1); e.preventDefault(); }
+        else if (key === 'Enter'){
+          const items = itemsInActive();
+          if (items.length){
+            const link = items[selIndex].querySelector('a[href]');
+            if (link){ link.click(); }
+          }
+        }
+        else if (key === 'F1'){ toggleHelp(); e.preventDefault(); }
+        else if (key === 'F9'){ activateTab(0); e.preventDefault(); }
+        else if (key === 'F10'){ showSaveExit(); e.preventDefault(); }
+        else if (key === 'Escape'){ hideSaveExit(); }
+      });
+
+      // --- Help toggling (right panel) ---
+      function toggleHelp(){
+        const helpPanel = document.querySelector('.help .tui-panel');
+        helpPanel.hidden = !helpPanel.hidden;
+      }
+
+      // --- Save & Exit modal ---
+      const modal = document.getElementById('saveModal');
+      function showSaveExit(){ modal.hidden = false; document.getElementById('openPdf').focus(); }
+      function hideSaveExit(){ modal.hidden = true; }
+      document.getElementById('closeModal').addEventListener('click', hideSaveExit);
+      document.getElementById('openPdf').addEventListener('click', ()=>{
+        // Replace with a real PDF URL if you have one
+        window.open('./cv.pdf', '_blank');
+        hideSaveExit();
+      });
+
+      // Initial selection for lists
+      resetSelection();
+
+      // Optional: set your name into the header automatically from the Main pane
+      const mainName = document.querySelector('#tab-main .kv .v strong');
+      if (mainName){ document.getElementById('cvName').textContent = mainName.textContent; }
+    </script>
+  </body>
+</html>
